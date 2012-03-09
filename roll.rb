@@ -5,6 +5,8 @@ def D(sides)
 return rand(sides) + 1  
 end
 
+
+# Rolls a number of dice of particular sizes.
 def rollmany(dice, sides) 
     rolls = 0 
     for i in (1..dice)
