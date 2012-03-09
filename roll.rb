@@ -1,12 +1,11 @@
+$statlist = ['STR', 'DEX', 'CHA', 'INT', 'WIS', 'CON'] 
+
+# Roll a D(sides) size die. 
 def roll(sides)
 return rand(sides) + 1  
 end
 
-
-
-
-$statlist = ['STR', 'DEX', 'CHA', 'INT', 'WIS', 'CON'] 
-
+#This iterates through the Stat list and turns each stat into a key. It then rolls 3 d6's to get the starting value for that stat.
 def statroll() 
 stathash = {} 
     for stat in $statlist 
@@ -16,10 +15,12 @@ stathash = {}
         end
         stathash[stat] = rolls  
     end 
-
+#prints the new hash 
 stathash.each {|key, value| puts "#{key} is #{value}" }
 end
 
+
+#Class, what the hell are you doing here? No, It's okay. I'll move you later. 
 class Origin
     attr_accessor :name, :desc
 
@@ -28,4 +29,7 @@ class Origin
         @desc = desc
     end
 end
+
+
+
 
