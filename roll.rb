@@ -39,5 +39,26 @@ class Origin
 end
 
 
+class PC 
+    class_accessor :name, :primo, :seco
+    def initialize(name, primo, seco) 
+        @name = name
+        @primo = primo
+        @seco = seco
+    end
+end
 
+class Test
+    attr_accessor :stats
 
+    def initialize()
+        @stats = statroll()
+    end
+end
+
+def startup()
+    seismic = Origin.new("Seismic", "Rock Guy") 
+    android = Origin.new("Android", "Robot")
+    mark = PC.new("Mark", android, seismic)
+
+end
