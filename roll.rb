@@ -17,25 +17,26 @@ end
 
 def modstat(r)
 modlist = []
-    if r == 3
-        modlist = [r, -4]
-    elsif (4..5).include? r
-        modlist = [r, -3]
-    elsif (6..7).include? r
-        modlist = [r, -2]
-    elsif (8..9).include? r
-        modlist = [r, -1]
-    elsif (10..11).include? r
-        modlist = [r, 0]
-    elsif (12..13).include? r
-        modlist = [r, 1]
-    elsif (14..15).include? r
-        modlist = [r, 2]
-    elsif (16..17).include? r
-        modlist = [r, 3]
-    elsif  r == 18
-        modlist = [r, 4]
-    else 
+    case r
+    when 3
+       modlist = [r, -4]
+    when (4..5) 
+       modlist = [r, -3]
+    when (6..7)
+       modlist = [r, -2]
+    when (8..9)
+       modlist = [r, -1]
+    when (10..11)
+       modlist = [r, 0]
+    when (12..13)
+       modlist = [r, 1]
+    when (14..15)
+       modlist = [r, 2]
+    when (16..17)
+       modlist = [r, 3]
+    when 18
+       modlist = [r, 4]
+   else 
         puts "nothing"
     end
     return modlist
@@ -63,36 +64,67 @@ class Origin
     def initialize(name, desc)
         @name = name
         @desc = desc
+
     end
     def self.randO()
         found = []
         ObjectSpace.each_object(Origin) { |o|
-        found << o}
+        if o.name == "Engineered Human"
+            next
+        else
+        found << o
+        end
+        }
         
+            
         return found[rand(found.size)]
     end
 end
 
 class PC 
     attr_accessor :name, :primo, :seco, :stats
-
+    #Now it does random origins - but how do I make it so that there are no duplicates, to create the 
     def initialize(name) 
         @name = name
         @primo = Origin.randO() 
         @seco = Origin.randO()
+        if self.primo == self.seco
+            self.seco = $engineered
+        end
         @stats = statroll()
     end
 end
 
+class Power
+        attr_accessor :name, :level, :origin, :use, :type, :act, :range, :target, :attack, :hit
+
+    def initialize(name, level, origin, use, type, act, range, target, attack, hit) 
+        @name = name
+        @level = level
+        @origin = origin 
+        @use = use
+        @type = type
+        @act = act
+        @range = range
+        @target = target
+        @attack = attack
+        @hit = hit
+    end 
+end 
 
 #This line is going to be important later.
 #stat[0], stat[0][0], stat[0][1] 
 
 
 def startup()
+    $photonic = Origin.new("Photonic", "LIGHT") 
+    $demon = Origin.new("Demon", "demon") 
+    $octopod = Origin.new("Octopod", "octopus") 
     $seismic = Origin.new("Seismic", "Rock") 
     $android = Origin.new("Android", "Robot")
+    $engineered = Origin.new("Engineered Human", "Special Human") 
     $a = PC.new("Alex")
     return $a
 end
 
+$st = startup()
