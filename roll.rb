@@ -52,11 +52,10 @@ stathash = {}
     return stathash
 #prints the new hash 
 #stathash.each {|key, value| puts "#{key} is #{value}" }
-
 end
 
 
-#Class, what the hell are you doing here? No, It's okay. I'll move you later. 
+#Classes, what the hell are you doing here? No, It's okay. I'll move you later. 
 
 class Origin
     attr_accessor :name, :desc
@@ -65,15 +64,22 @@ class Origin
         @name = name
         @desc = desc
     end
+    def self.randO()
+        found = []
+        ObjectSpace.each_object(Origin) { |o|
+        found << o}
+        
+        return found[rand(found.size)]
+    end
 end
 
 class PC 
     attr_accessor :name, :primo, :seco, :stats
 
-    def initialize(name, primo, seco) 
+    def initialize(name) 
         @name = name
-        @primo = primo
-        @seco = seco
+        @primo = Origin.randO() 
+        @seco = Origin.randO()
         @stats = statroll()
     end
 end
@@ -81,3 +87,12 @@ end
 
 #This line is going to be important later.
 #stat[0], stat[0][0], stat[0][1] 
+
+
+def startup()
+    $seismic = Origin.new("Seismic", "Rock") 
+    $android = Origin.new("Android", "Robot")
+    $a = PC.new("Alex")
+    return $a
+end
+
